@@ -1,0 +1,18 @@
+{
+  "name": "yelpcamp-1",
+  "version": "1.0.0",
+  "description": "It is a full CRUD(Create, Read, Update and Delete) functionality for campgrounds objects alongwith mapbox API to display maps and geo-encode location data.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "ejs-mate": "^4.0.0",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.1"
+  }
+}
