@@ -1,10 +1,11 @@
 const express = require("express")
 const app = express()
 const path = require("path")
+const cities=require("./cities")
 const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 
-const Campground = require("./models/campground")
+const Campground = require("../models/campground")
 main().catch(err => console.log(err));
 
 async function main() {
@@ -18,23 +19,14 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
 
-app.get("/",(req, res) =>{
-    res.render("home")
-    
-})
-
-app.get("/makecampground",async(req, res) =>{
-    const camp =new Campground({
-        title:"My backyard",
-        description:"cheap camping"
-
-    })
-    await camp.save()
-    res.send(camp)
-    
-})
-
-app.listen(3000, () => {
-    console.log("Serving on port 3000")
-})
-
+const seeddb = async () => {
+    await Campground.deleteMany({})
+    for (let i = 0; i < 50; i++){
+        const random1000 = Math.floor(Math.random() * 1000)
+        const camp = new Campground({
+            location:`${cities[random1000].city}`
+        })
+        await camp.save()
+    }
+}
+seeddb()
