@@ -1,12 +1,7 @@
-const express = require("express")
-const app = express()
-const path = require("path")
-const cities=require("./cities")
 const mongoose = require('mongoose');
-const methodOverride = require('method-override')
-
-const Campground = require("../models/campground")
-main().catch(err => console.log(err));
+const cities = require('./cities');
+const { places, descriptors } = require('./seedHelpers');
+const Campground = require('../models/campground');
 
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
@@ -14,22 +9,18 @@ async function main() {
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 
-app.set("views", path.join(__dirname, "views"))
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'))
+const sample = array => array[Math.floor(Math.random() * array.length)];
 
-const seeddb = async () => {
-    await Campground.deleteMany({})
-    for (let i = 0; i < 50; i++){
-        const random1000 = Math.floor(Math.random() * 1000)
+const seedDB = async () => {
+    await Campground.deleteMany({});
+    for (let i = 0; i < 50; i++) {
+        const random1000 = Math.floor(Math.random() * 1000);
         const camp = new Campground({
-            location: `${cities[random1000].city},${cities[random1000].state}`,
+            location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`
         })
-        await camp.save()
+        await camp.save();
     }
 }
-seeddb().then(() => {
-    mongoose.connection.close();
-})
+
+seedDB()
