@@ -9,3 +9,7 @@ const CampgroundSchema = new Schema({
     location:String
 })
 module.exports = mongoose.model("Campground", CampgroundSchema);
+// // mongoose.model("Campground", CampgroundSchema) creates a Mongoose model named "Campground" 
+// using the provided schema, "CampgroundSchema." This model allows you to interact with
+// documents in the "Campground" collection, such as creating, reading, updating, 
+//and deleting documents.

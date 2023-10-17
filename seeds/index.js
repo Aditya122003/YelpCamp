@@ -19,7 +19,7 @@ const seedDB = async () => {
           price
         })
         await camp.save();
-    }
+ }
 }
 
 seedDB()
